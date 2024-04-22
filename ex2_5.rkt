@@ -28,3 +28,7 @@
 
 (define (num-cdr n)
   (find-exponent (eliminate-factor n 2) 3))
+
+(provide num-cons
+		 num-car
+		 num-cdr)
