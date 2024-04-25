@@ -1,6 +1,6 @@
 #lang racket
 
-(define (reverse lst)
+(define (reverse-iter lst)
   (define (iter in out)
 	(if (null? in)
 	  out
@@ -12,5 +12,5 @@
 	'()
 	(append (reverse-rec (cdr lst)) (list (car lst)))))
 
-(provide reverse
+(provide reverse-iter
 		 reverse-rec)
