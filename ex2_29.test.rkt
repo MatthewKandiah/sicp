@@ -1,9 +1,9 @@
 #lang racket
 
 (require rackunit
-		 "ex2_29.rkt")
+         "ex2_29.rkt")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; test data											  
+;; test data
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define branch-flat1 (make-branch 1 2))
 (define branch-flat2 (make-branch 3 4))
@@ -22,9 +22,9 @@
 (check-equal? (branch-length branch-flat2) 3)
 (check-equal? (branch-structure branch-flat2) 4)
 (check-equal? (branch-structure branch-simple-mobile)
-			  (make-branch branch-flat1 branch-flat2))
+              (make-branch branch-flat1 branch-flat2))
 (check-equal? (branch-structure branch-nested-mobile)
-			  (make-mobile branch-flat1 branch-simple-mobile))
+              (make-mobile branch-flat1 branch-simple-mobile))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mobile selectors
@@ -46,3 +46,32 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (check-equal? (mobile-weight mobile-flat) 6)
 (check-equal? (mobile-weight mobile-nested-left) 10)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; mobile-balanced?
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(check-false (mobile-balanced? (make-mobile (make-branch 1 1) (make-branch 1 2))))
+(check-true (mobile-balanced? (make-mobile (make-branch 1 1) (make-branch 1 1))))
+(check-true (mobile-balanced? (make-mobile (make-branch 1 2) (make-branch 2 1))))
+(check-true (mobile-balanced? (make-mobile (make-branch 1 2) (make-branch 0.5 4))))
+(check-true (mobile-balanced?
+             (make-mobile
+              (make-branch 1 10)
+              (make-branch 2
+                           (make-mobile
+                            (make-branch 1 3)
+                            (make-branch 1.5 2))))))
+(check-false (mobile-balanced?
+              (make-mobile
+               (make-branch 1 10)
+               (make-branch 3
+                            (make-mobile
+                             (make-branch 1 3)
+                             (make-branch 1.5 2))))))
+(check-false (mobile-balanced?
+              (make-mobile
+               (make-branch 1 10)
+               (make-branch 2
+                            (make-mobile
+                             (make-branch 1 3)
+                             (make-branch 2 2))))))
