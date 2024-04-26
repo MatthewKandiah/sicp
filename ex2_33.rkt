@@ -9,7 +9,7 @@
   (accumulate cons seq2 seq1))
 
 (define (length seq)
-  (accumulate (lambda (x y) (+ 1 y)) 0 seq))
+  (accumulate (lambda (_ y) (+ 1 y)) 0 seq))
 
 (provide map
 		 append
